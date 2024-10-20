@@ -22,8 +22,13 @@ try:
     mycursor.execute(f"USE {database_name};")
     print(f"Switched to database '{database_name}'.")
 
-    -- Query to show columns in the Books table
-    mycursor.execute("SHOW COLUMNS FROM Books;")
+    -- Query to get the column details from the Books table
+    query = """
+    SELECT COLUMN_NAME, COLUMN_TYPE, IS_NULLABLE, COLUMN_KEY, COLUMN_DEFAULT, EXTRA
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s;
+    """
+    mycursor.execute(query, (database_name, 'Books'))
     columns = mycursor.fetchall()
 
     if columns:
