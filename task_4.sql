@@ -26,27 +26,25 @@ try:
     query = """
     SELECT COLUMN_NAME, COLUMN_TYPE, IS_NULLABLE, COLUMN_KEY, COLUMN_DEFAULT, EXTRA
     FROM INFORMATION_SCHEMA.COLUMNS
-    WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s;
+    WHERE TABLE_SCHEMA = 'alx_book_store' AND TABLE_NAME = 'Books';
     """
-    -- Define the table name as a variable
-    table_name = 'Books'  -- Specify the name of the table here
-
-    -- Execute the query with the database name and table name as parameters
-    mycursor.execute(query, (database_name, table_name))
+    
+    -- Execute the query
+    mycursor.execute(query)
     columns = mycursor.fetchall()
 
     if columns:
-        print(f"\nFull description of the '{table_name}' table in '{database_name}':")
+        print(f"\nFull description of the 'Books' table in '{database_name}':")
         for column in columns:
             field = column[0]
-            type = column[1]
+            col_type = column[1]
             nullable = column[2]
             key = column[3]
             default = column[4]
             extra = column[5]
-            print(f"Field: {field}, Type: {type}, Null: {nullable}, Key: {key}, Default: {default}, Extra: {extra}")
+            print(f"Field: {field}, Type: {col_type}, Null: {nullable}, Key: {key}, Default: {default}, Extra: {extra}")
     else:
-        print(f"No columns found in the '{table_name}' table.")
+        print(f"No columns found in the 'Books' table.")
 
 except mysql.connector.Error as err:
     print(f"Error: {err}")
@@ -57,4 +55,5 @@ finally:
     if mydb:
         mydb.close()
     print("Database connection closed.")
+
 
