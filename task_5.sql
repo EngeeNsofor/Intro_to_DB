@@ -17,7 +17,7 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
--- Insert a single row into the Customers table
+-- Insert a single row into the Customer table
 try:
     -- Use the specified database
     mycursor.execute(f"USE {database_name};")
@@ -25,7 +25,7 @@ try:
 
     -- Insert the customer data
     sql = """
-    INSERT INTO Customers (customer_id, customer_name, email, address)
+    INSERT INTO customer (customer_id, customer_name, email, address)
     VALUES (%s, %s, %s, %s);
     """
     val = (1, 'Cole Baidoo', 'cbaidoo@sandtech.com', '123 Happiness Ave.')
