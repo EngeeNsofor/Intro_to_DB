@@ -28,8 +28,10 @@ try:
     FROM INFORMATION_SCHEMA.COLUMNS
     WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s;
     """
-    -- Use parameters without hardcoding the schema and table name
-    table_name = 'Books'  -- Specify table name here
+    -- Define the table name as a variable
+    table_name = 'Books'  -- Specify the name of the table here
+
+    -- Execute the query with the database name and table name as parameters
     mycursor.execute(query, (database_name, table_name))
     columns = mycursor.fetchall()
 
@@ -55,3 +57,4 @@ finally:
     if mydb:
         mydb.close()
     print("Database connection closed.")
+
