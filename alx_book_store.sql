@@ -3,9 +3,9 @@ import mysql.connector
 -- Database connection details 
 mydb = mysql.connector.connect(
     host="localhost",
-    user="yourusername",  # Replace with your MySQL username
-    password="yourpassword",  # Replace with your MySQL password
-    database="alx_book_store"  # Ensure the database exists or replace with your target db
+    user="yourusername",  -- Replace with your MySQL username
+    password="yourpassword",  -- Replace with your MySQL password
+    database="alx_book_store"  -- Ensure the database exists or replace with your target db
 )
 
 mycursor = mydb.cursor()

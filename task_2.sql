@@ -3,8 +3,8 @@ import mysql.connector
 -- Database connection details 
 mydb = mysql.connector.connect(
     host="localhost",
-    user="yourusername",  # Replace with your MySQL username
-    password="yourpassword"  # Replace with your MySQL password
+    user="yourusername",  -- Replace with your MySQL username
+    password="yourpassword"  -- Replace with your MySQL password
 )
 
 mycursor = mydb.cursor()
