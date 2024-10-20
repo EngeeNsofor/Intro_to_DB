@@ -1,6 +1,6 @@
 import mysql.connector
 
-# Database connection details 
+-- Database connection details 
 mydb = mysql.connector.connect(
     host="localhost",
     user="yourusername",  # Replace with your MySQL username
@@ -10,7 +10,16 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-# Create the Authors table
+
+-- Create the database if it doesn't exist
+mycursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+print("Database 'alx_book_store' created successfully (if it didn't already exist).")
+
+# Connect to the 'alx_book_store' database
+mydb.database = "alx_book_store"
+
+
+-- Create the Authors table
 mycursor.execute("""
 CREATE TABLE IF NOT EXISTS Authors (
     author_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -19,7 +28,8 @@ CREATE TABLE IF NOT EXISTS Authors (
 """)
 print("Authors table created successfully!")
 
-# Create the Books table
+
+-- Create the Books table
 mycursor.execute("""
 CREATE TABLE IF NOT EXISTS Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,7 +42,8 @@ CREATE TABLE IF NOT EXISTS Books (
 """)
 print("Books table created successfully!")
 
-# Create the Customers table
+
+-- Create the Customers table
 mycursor.execute("""
 CREATE TABLE IF NOT EXISTS Customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,7 +54,8 @@ CREATE TABLE IF NOT EXISTS Customers (
 """)
 print("Customers table created successfully!")
 
-# Create the Orders table
+
+-- Create the Orders table
 mycursor.execute("""
 CREATE TABLE IF NOT EXISTS Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -54,7 +66,8 @@ CREATE TABLE IF NOT EXISTS Orders (
 """)
 print("Orders table created successfully!")
 
-# Create the Order_Details table
+
+-- Create the Order_Details table
 mycursor.execute("""
 CREATE TABLE IF NOT EXISTS Order_Details (
     orderdetailid INT AUTO_INCREMENT PRIMARY KEY,
@@ -67,7 +80,8 @@ CREATE TABLE IF NOT EXISTS Order_Details (
 """)
 print("Order_Details table created successfully!")
 
-# Insert data into Authors table
+
+-- Insert data into Authors table
 sql = "INSERT INTO Authors (author_name) VALUES (%s)"
 val = ("George Orwell",)
 mycursor.execute(sql, val)
@@ -79,7 +93,8 @@ mycursor.execute(sql, val)
 mydb.commit()
 print(mycursor.rowcount, "author record inserted.")
 
-# Insert data into Books table
+
+-- Insert data into Books table
 sql = "INSERT INTO Books (title, author_id, price, publication_date) VALUES (%s, %s, %s, %s)"
 val = ("1984", 1, 19.99, "1949-06-08")
 mycursor.execute(sql, val)
@@ -91,7 +106,8 @@ mycursor.execute(sql, val)
 mydb.commit()
 print(mycursor.rowcount, "book record inserted.")
 
-# Insert data into Customers table
+
+-- Insert data into Customers table
 sql = "INSERT INTO Customers (customer_name, email, address) VALUES (%s, %s, %s)"
 val = ("John Doe", "john.doe@example.com", "123 Main St")
 mycursor.execute(sql, val)
@@ -103,7 +119,8 @@ mycursor.execute(sql, val)
 mydb.commit()
 print(mycursor.rowcount, "customer record inserted.")
 
-# Read all customer data
+
+-- Read all customer data
 mycursor.execute("SELECT * FROM Customers")
 myresult = mycursor.fetchall()
 
@@ -111,27 +128,31 @@ print("Customers:")
 for row in myresult:
     print(row)
 
-# Update a customer's email
+
+-- Update a customer's email
 sql = "UPDATE Customers SET email = %s WHERE customer_id = %s"
 val = ("updated.email@example.com", 1)
 mycursor.execute(sql, val)
 mydb.commit()
 print(mycursor.rowcount, "record(s) updated.")
 
-# Read the updated customer data
+
+-- Read the updated customer data
 mycursor.execute("SELECT * FROM Customers WHERE customer_id = 1")
 myresult = mycursor.fetchone()
 
 print("Updated customer:")
 print(myresult)
 
-# Delete a customer
+
+-- Delete a customer
 sql = "DELETE FROM Customers WHERE customer_id = 2"
 mycursor.execute(sql)
 mydb.commit()
 print(mycursor.rowcount, "record(s) deleted.")
 
-# Close connections
+
+-- Close connections
 mycursor.close()
 mydb.close()
 print("Database connection closed.")
