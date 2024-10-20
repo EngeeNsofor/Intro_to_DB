@@ -1,7 +1,7 @@
 import mysql.connector
 import sys
 
---  Ensure a database name is provided as a command-line argument
+-- Ensure a database name is provided as a command-line argument
 if len(sys.argv) != 2:
     print("Usage: python task_3.py <database_name>")
     sys.exit(1)
@@ -11,8 +11,8 @@ database_name = sys.argv[1]
 -- Database connection details 
 mydb = mysql.connector.connect(
     host="localhost",
-    user="yourusername",  # Replace with your MySQL username
-    password="yourpassword"  # Replace with your MySQL password
+    user="yourusername",  -- Replace with your MySQL username
+    password="yourpassword"  -- Replace with your MySQL password
 )
 
 mycursor = mydb.cursor()
@@ -25,8 +25,12 @@ try:
     -- Connect to the specified database
     mydb.database = database_name
 
+    -- Switch to the alx_book_store database (if not done with `mydb.database`)
+    mycursor.execute("USE alx_book_store;")  -- This line is typically redundant if `mydb.database` is set
+    print(f"Switched to database '{database_name}'.")
+
     -- Query to list all tables in the database
-    mycursor.execute("SHOW TABLES")
+    mycursor.execute("SHOW TABLES;")
     tables = mycursor.fetchall()
 
     if tables:
@@ -45,3 +49,4 @@ finally:
     if mydb:
         mydb.close()
     print("Database connection closed.")
+
